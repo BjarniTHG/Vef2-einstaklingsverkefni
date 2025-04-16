@@ -8,10 +8,10 @@ const JWT_SECRET = process.env.JWT_SECRET || 'jwt_lykilord';
 
 export async function POST(
     request: Request,
-    { params }: { params: { id: string} }
+    { params }: { params: { id: string } }
 ) {
     try{
-        const { id } = await params;
+        const id =  params.id;
         const quizAttemptId = parseInt(id);
         
 
