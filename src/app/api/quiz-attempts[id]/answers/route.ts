@@ -2,14 +2,19 @@ import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
-import { NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'jwt_lykilord';
 
+type RouteParams = {
+  params: {
+    id: string;
+  };
+};
+
 export async function POST(
-    request: NextRequest,
-    { params }: { params: { id: string } }
+    request: Request,
+    { params }: RouteParams
 ) {
     try{
         const id = params.id;
