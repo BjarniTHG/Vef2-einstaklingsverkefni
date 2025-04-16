@@ -30,11 +30,12 @@ export async function POST(request: Request){
             }
         });
         const { password: _, ...userWithoutPassword} = user;
+        console.log(_);
         return NextResponse.json(userWithoutPassword, { status: 201 });
     } catch(error){
         console.error('Nýskráningar villa: ', error);
         return NextResponse.json(
-            { error: 'Nýskráning feilaði ', details: error.message }, 
+            { error: 'Nýskráning feilaði '}, 
             { status: 500 });
     }
 }
