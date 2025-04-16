@@ -36,17 +36,20 @@ const Header = () => {
             <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text font-bold text-lg px-2 py-1 rounded-md border border-blue-400 shadow-md hover:shadow-blue-300/50 transition-all duration-300 cursor-default">
             {user.name}
             </span>
+            <Link href="/dashboard">
+              <span className="text-gray-300 hover:text-white">Dashboard</span>
+            </Link>
             <button 
               onClick={logout}
               className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-md transition-colors"
             >
-              Sign Out
+              Skrá út
             </button>
             </>
           ) : (
             <Link href="/auth/login">
               <button className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-md transition-colors">
-                Sign In
+                Skrá inn
               </button>
             </Link>
           )}

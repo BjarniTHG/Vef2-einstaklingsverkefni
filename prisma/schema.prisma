@@ -18,10 +18,77 @@ enum Role {
   ADMIN
 }
 
+enum QuestionType {
+  MULTIPLE_CHOICE
+  // Mögulega bæti seinna við: TRUE_FALSE, SHORT_ANSWER, etc.
+}
+
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
-  role     Role   @default(USER)
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  password     String
+  role         Role          @default(USER)
+  createdAt    DateTime      @default(now())
+  questionSets QuestionSet[]
+  quizAttempts QuizAttempt[]
+}
+
+model QuestionSet {
+  id          Int           @id @default(autoincrement())
+  title       String
+  description String?
+  isPublic    Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  createdBy   User          @relation(fields: [createdById], references: [id])
+  createdById Int
+  questions   Question[]
+  attempts    QuizAttempt[]
+}
+
+model Question {
+  id            Int          @id @default(autoincrement())
+  text          String
+  type          QuestionType
+  createdAt     DateTime     @default(now())
+  questionSet   QuestionSet  @relation(fields: [questionSetId], references: [id])
+  questionSetId Int
+  options       Option[]
+  answers       Answer[]
+}
+
+model Option {
+  id         Int      @id @default(autoincrement())
+  text       String
+  isCorrect  Boolean  @default(false)
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
+  Answer     Answer[]
+}
+
+model QuizAttempt {
+  id            Int         @id @default(autoincrement())
+  user          User        @relation(fields: [userId], references: [id])
+  userId        Int
+  questionSet   QuestionSet @relation(fields: [questionSetId], references: [id])
+  questionSetId Int
+  startedAt     DateTime    @default(now())
+  finishedAt    DateTime?
+  score         Int?
+  timeTaken     Int?
+  answers       Answer[]
+}
+
+model Answer {
+  id             Int         @id @default(autoincrement())
+  quizAttempt    QuizAttempt @relation(fields: [quizAttemptId], references: [id])
+  quizAttemptId  Int
+  question       Question    @relation(fields: [questionId], references: [id])
+  questionId     Int
+  selectedOption Option      @relation(fields: [optionId], references: [id])
+  optionId       Int
+  correct        Boolean
+  timeToAnswer   Int?
+  createdAt      DateTime    @default(now())
 }
