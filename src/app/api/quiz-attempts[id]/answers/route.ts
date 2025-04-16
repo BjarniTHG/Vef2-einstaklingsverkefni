@@ -2,16 +2,17 @@ import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import { NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'jwt_lykilord';
 
 export async function POST(
-    request: Request,
-    context: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: { id: string } }
 ) {
     try{
-        const id = context.params.id;
+        const id = params.id;
         const quizAttemptId = parseInt(id);
         
         const cookieStore = cookies();
