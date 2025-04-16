@@ -3,7 +3,8 @@ DATABASE_URL="postgresql://postgres:REZdjAVSkQRAvXLIKGXlhTJTSxrBWCfj@yamanote.pr
 JWT_SECRET="jwt_lykilord"
 
 Til að keyra verkefnið þarf að:
->Búa til .env skrána í rót verkefnis
->npm installa
->npx prisma generate
->npm run dev 
+->Búa til .env skrána í rót verkefnis
+
+->npm installa
+->npx prisma generate
+->npm run dev 
