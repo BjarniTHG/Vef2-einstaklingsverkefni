@@ -5,3 +5,4 @@ búa til `.env` skrána í rót verkefnis,
 `npm install`, 
 `npx prisma generate`, 
 `npm run dev`
+
